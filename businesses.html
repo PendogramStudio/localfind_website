@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Businesses - LOCALFIND</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      background: #f0f4f8;
+      color: #222;
+    }
+    h1 {
+      text-align: center;
+      font-size: 3em;
+      margin-bottom: 20px;
+      color: #0056b3;
+    }
+    nav {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    nav a {
+      display: inline-block;
+      margin: 0 15px;
+      font-weight: bold;
+      color: #007bff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      border: 1.8px solid transparent;
+      transition: all 0.3s ease;
+    }
+    nav a:hover, nav a.active {
+      background: #007bff;
+      color: white;
+      border-color: #0056b3;
+    }
+    #searchBar {
+      width: 100%;
+      padding: 15px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      border: 1.5px solid #ccc;
+      margin-bottom: 25px;
+      transition: border-color 0.3s ease;
+    }
+    #searchBar:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px #007bffaa;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      font-size: 1.15em;
+    }
+    li {
+      margin: 10px 0;
+    }
+    a.business-link {
+      color: #0056b3;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    a.business-link:hover {
+      color: #007bff;
+      text-decoration: underline;
+    }
+    p.no-results {
+      font-style: italic;
+      color: #666;
+      margin-top: 25px;
+      text-align: center;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="businesses.html" class="active">Businesses</a>
+    <a href="websites.html">Websites</a>
+  </nav>
+
+  <h1>Businesses</h1>
+
+  <input type="text" id="searchBar" placeholder="Search businesses by name, category or location (min 3 letters)" autocomplete="off" />
+
+  <ul id="businessList"></ul>
+
+  <script src="data.js"></script>
+  <script>
+    const searchBar = document.getElementById('searchBar');
+    const businessList = document.getElementById('businessList');
+
+    function displayBusinesses(filter = "") {
+      businessList.innerHTML = "";
+      const filtered = businesses.filter(b =>
+        filter.length < 3 ||
+        b.name.toLowerCase().includes(filter.toLowerCase()) ||
+        b.category.toLowerCase().includes(filter.toLowerCase()) ||
+        b.location.toLowerCase().includes(filter.toLowerCase())
+      );
+
+      if(filtered.length === 0) {
+        businessList.innerHTML = `<p class="no-results">No businesses found.</p>`;
+        return;
+      }
+
+      filtered.forEach(b => {
+        businessList.innerHTML += `<li><a class="business-link" href="details.html?id=${b.id}">${b.name} (${b.category}, ${b.location})</a></li>`;
+      });
+    }
+
+    displayBusinesses();
+
+    searchBar.addEventListener('input', () => {
+      const query = searchBar.value.trim();
+      displayBusinesses(query);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Business Details - LOCALFIND</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+      color: #222;
+    }
+    nav {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    nav a {
+      display: inline-block;
+      margin: 0 15px;
+      font-weight: bold;
+      color: #007bff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      border: 1.8px solid transparent;
+      transition: all 0.3s ease;
+    }
+    nav a:hover {
+      background: #007bff;
+      color: white;
+      border-color: #0056b3;
+    }
+    h1 {
+      text-align: center;
+      font-size: 3em;
+      margin-bottom: 5px;
+      color: #0056b3;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 0;
+      font-weight: normal;
+      color: #444;
+      margin-bottom: 30px;
+    }
+    .section {
+      background: white;
+      padding: 25px;
+      margin-top: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.07);
+    }
+    .section h3 {
+      margin-top: 0;
+      color: #003366;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 6px;
+      font-size: 1.8em;
+    }
+    ul {
+      padding-left: 20px;
+      font-size: 1.15em;
+    }
+    ul li {
+      margin-bottom: 10px;
+    }
+    .contact-info {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+    a.website-link {
+      color: #007bff;
+      text-decoration: none;
+    }
+    a.website-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="Home.html">Home</a>
+    <a href="businesses.html">Businesses</a>
+    <a href="websites.html">Websites</a>
+  </nav>
+
+  <h1 id="businessName"></h1>
+  <h2 id="businessCategoryLocation"></h2>
+
+  <div class="section" id="contactSection">
+    <h3>Contact Details</h3>
+    <p class="contact-info" id="contactDetails"></p>
+  </div>
+
+  <div class="section" id="reviewedByUsSection">
+    <h3>Reviewed By LOCALFIND</h3>
+    <p id="reviewedByUsText"></p>
+  </div>
+
+  <div class="section" id="opinionsSection">
+    <h3>Customer Opinions</h3>
+    <ul id="opinionsList"></ul>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = parseInt(urlParams.get('id'));
+    const businessNameEl = document.getElementById('businessName');
+    const businessCategoryLocationEl = document.getElementById('businessCategoryLocation');
+    const contactDetailsEl = document.getElementById('contactDetails');
+    const reviewedByUsTextEl = document.getElementById('reviewedByUsText');
+    const opinionsListEl = document.getElementById('opinionsList');
+
+    const business = businesses.find(b => b.id === id);
+
+    if(!business) {
+      document.body.innerHTML = `<h1 style="text-align:center;color:#c00;margin-top:100px;">Business not found!</h1><p style="text-align:center;">Please go back and try again.</p>`;
+    } else {
+      businessNameEl.textContent = business.name;
+      businessCategoryLocationEl.textContent = `${business.category} — ${business.location}`;
+
+      contactDetailsEl.innerHTML = `
+        Website: <a class="website-link" href="http://${business.website}" target="_blank" rel="noopener">${business.website}</a><br/>
+        Contact Number: ${business.contact}
+      `;
+
+      reviewedByUsTextEl.textContent = business.reviewedByUs;
+
+      opinionsListEl.innerHTML = business.opinions.map(op => `<li>“${op}”</li>`).join('');
+    }
+  </script>
+
+</body>
+</html>
