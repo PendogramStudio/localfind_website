@@ -113,11 +113,25 @@ const businesses = [
     ]
   },
   {
-    id: 8,
+    id: 9,
     name: "Kammadi",
     category: "Industry",
     location: "Puttur, Sampya",
     website: "www.kammadi.com",
+    contact: "9800012345",
+    reviewedByUs: "Excellent curriculum and dedicated teachers.",
+    opinions: [
+      "My kids love the interactive classes. – Priyanka",
+      "Good extracurricular activities. – Rohit",
+      "Safe and friendly environment. – Neeta"
+    ]
+  },
+  {
+    id: 10,
+    name: "Munna House",
+    category: "Hotel",
+    location: "Sullia",
+    website: "www.munna.com",
     contact: "9800012345",
     reviewedByUs: "Excellent curriculum and dedicated teachers.",
     opinions: [
